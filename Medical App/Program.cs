@@ -26,31 +26,22 @@ namespace Medical_App
                 switch (initialChoice)
                 {
                     case "1":
-                        string fullname;
-                        while (true)
-                        {
-                            Console.WriteLine("Enter full name:");
-                            fullname = Console.ReadLine();
-                            if (!string.IsNullOrWhiteSpace(fullname))
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Fullname cannot be empty.");
-                            }
-                        }
-
+                        Console.WriteLine("Enter full name:");
+                        string fullname = Console.ReadLine();
                         string email;
                         while (true)
                         {
                             Console.WriteLine("Enter email:");
                             email = Console.ReadLine();
-                            if (IsValidEmail(email))
+                            try
                             {
-                                break;
+                                var addr = new System.Net.Mail.MailAddress(email);
+                                if (addr.Address == email)
+                                {
+                                    break;
+                                }
                             }
-                            else
+                            catch
                             {
                                 Console.WriteLine("Invalid email format.");
                             }
@@ -59,7 +50,7 @@ namespace Medical_App
                         string password;
                         while (true)
                         {
-                            Console.WriteLine("Enter password (En az 8 simvoldan hem boyuk hemde kicik herfden istifade etmelisiz!!):");
+                            Console.WriteLine("Enter password (at least 8 characters, both uppercase and lowercase):");
                             password = Console.ReadLine();
                             try
                             {
@@ -71,10 +62,10 @@ namespace Medical_App
                             catch (ArgumentException ex)
                             {
                                 Console.WriteLine(ex.Message);
+                                break;
                             }
                         }
                         break;
-
                     case "2":
                         User loggedInUser = null;
 
@@ -159,7 +150,7 @@ namespace Medical_App
                                     }
                                     break;
                                 case "4":
-                                    var allMedicines = medicineService.GetAllMedicines();
+                                    Medicine[] allMedicines = medicineService.GetAllMedicines();
                                     foreach (var med in allMedicines)
                                     {
                                         Console.WriteLine($"ID: {med.Id}, Name: {med.Name}, Price: {med.Price}, Category ID: {med.CategoryId}");
@@ -228,7 +219,7 @@ namespace Medical_App
                                     }
                                     break;
                                 case "9":
-                                    var medicines = medicineService.GetAllMedicines();
+                                    Medicine[] medicines = medicineService.GetAllMedicines();
                                     foreach (var med in medicines)
                                     {
                                         Console.WriteLine($"ID: {med.Id}, Name: {med.Name}, Price: {med.Price}, Category ID: {med.CategoryId}");
@@ -238,41 +229,26 @@ namespace Medical_App
                                     var allCategories = DB.Categories;
                                     foreach (var cat in allCategories)
                                     {
-                                        if (cat != null)
-                                        {
-                                            Console.WriteLine($"ID: {cat.Id}, Name: {cat.Name}");
-                                        }
+                                        Console.WriteLine($"ID: {cat.Id}, Name: {cat.Name}");
                                     }
                                     break;
                                 case "0":
                                     userLoggedIn = false;
+                                    Console.WriteLine("Logged out.");
                                     break;
                                 default:
-                                    Console.WriteLine("Invalid choice. Please try again.");
+                                    Console.WriteLine("Invalid option.");
                                     break;
                             }
                         }
                         break;
                     case "0":
-                        running = false;
+                        Console.WriteLine("Exiting to main menu.");
                         break;
                     default:
-                        Console.WriteLine("Invalid choice. Please try again.");
+                        Console.WriteLine("Invalid option.");
                         break;
                 }
-            }
-        }
-
-        private static bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
             }
         }
     }

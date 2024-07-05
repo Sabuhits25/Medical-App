@@ -9,10 +9,13 @@ namespace Medical_App.Models
     public static class DB
     {
         public static User[] Users = new User[0];
-        public static Category[]
-        Categories = new Category[0];
-        public static Medicine[]
-        Medicines = new Medicine[0];
+        public static Category[] Categories = new Category[0];
+        public static Medicine[] Medicines = new Medicine[0];
 
+        internal static void ResizeArray(ref Medicine[] medicines, int v)
+        {
+            throw new NotImplementedException();
+        }
     }
+
 }

@@ -8,7 +8,6 @@ namespace Medical_App.Models
 {
     public class User : BaseEntity
     {
-        private const string Message = ("Password 8 simvoldan boyuk ve kicik herflerden ibaret olmalidi!!");
         private string _password;
         private string _email;
 
@@ -41,7 +40,7 @@ namespace Medical_App.Models
                 }
                 else
                 {
-                    throw new ArgumentException(Message);
+                    throw new ArgumentException("Password must be at least 8 characters long and contain both uppercase and lowercase letters.");
                 }
             }
         }
