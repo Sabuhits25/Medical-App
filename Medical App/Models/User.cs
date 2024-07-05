@@ -40,14 +40,14 @@ namespace Medical_App.Models
                 }
                 else
                 {
-                    throw new ArgumentException("Password must be at least 8 characters long and contain both uppercase and lowercase letters.");
+                    throw new ArgumentException("Password en azi 8 simvol uzunlugunda olmalidi hem boyuk hem de kicik herflerden ibaret olmalidir.");
                 }
             }
         }
 
         private bool IsValidPassword(string password)
         {
-            if (password.Length < 8)
+            if (password.Length > 8)
             {
                 return false;
             }

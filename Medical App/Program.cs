@@ -8,6 +8,10 @@ namespace Medical_App
     {
         static void Main()
         {
+            DateTime programStart = DateTime.Now;
+            Console.WriteLine($"Tarix ve saat: {programStart}");
+            Console.WriteLine("");
+
             UserService userService = new UserService();
             CategoryService categoryService = new CategoryService();
             MedicineService medicineService = new MedicineService();
@@ -16,10 +20,13 @@ namespace Medical_App
 
             while (running)
             {
+                Console.WriteLine("Xos gelmisiniz!");
+                Console.WriteLine(" ");
                 Console.WriteLine("Select an option:");
                 Console.WriteLine("1. User Register");
                 Console.WriteLine("2. User Login");
                 Console.WriteLine("0. Exit");
+                Console.WriteLine(" ");
 
                 string initialChoice = Console.ReadLine();
 
@@ -31,6 +38,7 @@ namespace Medical_App
                         string email;
                         while (true)
                         {
+                            Console.WriteLine(" ");
                             Console.WriteLine("Enter email:");
                             email = Console.ReadLine();
                             try
@@ -43,6 +51,7 @@ namespace Medical_App
                             }
                             catch
                             {
+                                Console.WriteLine(" ");
                                 Console.WriteLine("Invalid email format.");
                             }
                         }
@@ -50,13 +59,16 @@ namespace Medical_App
                         string password;
                         while (true)
                         {
-                            Console.WriteLine("Enter password (at least 8 characters, both uppercase and lowercase):");
+                            Console.WriteLine(" ");
+                            Console.WriteLine("Enter password (En azi 8 simvol hem boyuk hem de kicik herf olmalidir):");
                             password = Console.ReadLine();
                             try
                             {
                                 User newUser = new User { Fullname = fullname, Email = email, Password = password };
                                 userService.AddUser(newUser);
+                                Console.WriteLine(" ");
                                 Console.WriteLine("User registered successfully.");
+                                Console.WriteLine(" ");
                                 break;
                             }
                             catch (ArgumentException ex)
@@ -108,16 +120,22 @@ namespace Medical_App
                             {
                                 case "1":
                                     Console.WriteLine("Enter category name:");
+                                    Console.WriteLine(" ");
                                     string categoryName = Console.ReadLine();
                                     categoryService.CreateCategory(new Category { Name = categoryName });
                                     Console.WriteLine("Category added.");
+                                    Console.WriteLine(" ");
+
                                     break;
                                 case "2":
                                     Console.WriteLine("Enter medicine name:");
+                                    Console.WriteLine(" ");
                                     string medicineName = Console.ReadLine();
                                     Console.WriteLine("Enter price:");
+                                    Console.WriteLine(" ");
                                     double price = Convert.ToDouble(Console.ReadLine());
                                     Console.WriteLine("Enter category ID:");
+                                    Console.WriteLine(" ");
                                     int categoryId = Convert.ToInt32(Console.ReadLine());
                                     Medicine medicine = new Medicine
                                     {
@@ -129,6 +147,7 @@ namespace Medical_App
                                     try
                                     {
                                         medicineService.CreateMedicine(medicine);
+                                        Console.WriteLine(" ");
                                         Console.WriteLine("Medicine added.");
                                     }
                                     catch (NotFoundException ex)
@@ -137,12 +156,15 @@ namespace Medical_App
                                     }
                                     break;
                                 case "3":
+                                    Console.WriteLine(" ");
                                     Console.WriteLine("Enter medicine ID to remove:");
+                                    Console.WriteLine(" ");
                                     int removeId = Convert.ToInt32(Console.ReadLine());
                                     try
                                     {
                                         medicineService.RemoveMedicine(removeId);
                                         Console.WriteLine("Medicine removed.");
+                                        Console.WriteLine(" ");
                                     }
                                     catch (NotFoundException ex)
                                     {
@@ -158,12 +180,16 @@ namespace Medical_App
                                     break;
                                 case "5":
                                     Console.WriteLine("Enter medicine ID to update:");
+                                    Console.WriteLine(" ");
                                     int updateId = Convert.ToInt32(Console.ReadLine());
                                     Console.WriteLine("Enter new medicine name:");
+                                    Console.WriteLine(" ");
                                     string newName = Console.ReadLine();
                                     Console.WriteLine("Enter new price:");
+                                    Console.WriteLine(" ");
                                     double newPrice = Convert.ToDouble(Console.ReadLine());
                                     Console.WriteLine("Enter new category ID:");
+                                    Console.WriteLine(" ");
                                     int newCategoryId = Convert.ToInt32(Console.ReadLine());
                                     Medicine updatedMedicine = new Medicine
                                     {
@@ -177,6 +203,7 @@ namespace Medical_App
                                     {
                                         medicineService.UpdateMedicine(updateId, updatedMedicine);
                                         Console.WriteLine("Medicine updated.");
+                                        Console.WriteLine(" ");
                                     }
                                     catch (NotFoundException ex)
                                     {
@@ -185,6 +212,7 @@ namespace Medical_App
                                     break;
                                 case "6":
                                     Console.WriteLine("Enter medicine ID:");
+                                    Console.WriteLine(" ");
                                     int id = Convert.ToInt32(Console.ReadLine());
                                     try
                                     {
@@ -198,6 +226,7 @@ namespace Medical_App
                                     break;
                                 case "7":
                                     Console.WriteLine("Enter medicine name:");
+                                    Console.WriteLine(" ");
                                     string name = Console.ReadLine();
                                     try
                                     {
@@ -211,6 +240,7 @@ namespace Medical_App
                                     break;
                                 case "8":
                                     Console.WriteLine("Enter category ID:");
+                                    Console.WriteLine(" ");
                                     int catId = Convert.ToInt32(Console.ReadLine());
                                     var medicinesByCategory = medicineService.GetMedicineByCategory(catId);
                                     foreach (var med in medicinesByCategory)
@@ -235,21 +265,29 @@ namespace Medical_App
                                 case "0":
                                     userLoggedIn = false;
                                     Console.WriteLine("Logged out.");
+                                    Console.WriteLine(" ");
                                     break;
                                 default:
                                     Console.WriteLine("Invalid option.");
+                                    Console.WriteLine(" ");
                                     break;
+
                             }
                         }
                         break;
                     case "0":
-                        Console.WriteLine("Exiting to main menu.");
+                        Console.WriteLine("Bizi secdiyiniz tesekkurler:");
+                        Console.WriteLine(" ");
                         break;
                     default:
                         Console.WriteLine("Invalid option.");
                         break;
+
+                      
                 }
             }
+
+           
         }
     }
 }
