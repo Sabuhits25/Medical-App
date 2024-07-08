@@ -8,6 +8,7 @@ namespace Medical_App
     {
         static void Main()
         {
+            User user = new User();
             DateTime programStart = DateTime.Now;
             Console.WriteLine($"Tarix ve saat: {programStart}");
             Console.WriteLine("");
@@ -55,15 +56,22 @@ namespace Medical_App
                                 Console.WriteLine("Invalid email format.");
                             }
                         }
-
+                        
                         string password;
                         while (true)
                         {
                             Console.WriteLine(" ");
+                            pswd:
                             Console.WriteLine("Enter password (En azi 8 simvol hem boyuk hem de kicik herf olmalidir):");
                             password = Console.ReadLine();
+                           
+                            while (user.IsValidPassword(password)==false)
+                            {
+                                goto pswd;
+                            }
                             try
                             {
+                                
                                 User newUser = new User { Fullname = fullname, Email = email, Password = password };
                                 userService.AddUser(newUser);
                                 Console.WriteLine(" ");

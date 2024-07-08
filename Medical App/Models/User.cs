@@ -40,14 +40,14 @@ namespace Medical_App.Models
                 }
                 else
                 {
-                    throw new ArgumentException("Password en azi 8 simvol uzunlugunda olmalidi hem boyuk hem de kicik herflerden ibaret olmalidir.");
+                    throw new ArgumentException("(En azi 8 simvol hem boyuk hem de kicik herf olmalidir.");
                 }
             }
         }
 
-        private bool IsValidPassword(string password)
+        public bool IsValidPassword(string password)
         {
-            if (password.Length > 8)
+            if (password.Length < 8)
             {
                 return false;
             }
@@ -57,11 +57,21 @@ namespace Medical_App.Models
 
             foreach (char c in password)
             {
-                if (char.IsUpper(c)) hasUpperCase = true;
-                if (char.IsLower(c)) hasLowerCase = true;
-            }
+                if (char.IsUpper(c)) 
+                { 
+                 hasUpperCase = true;
 
-            return hasUpperCase && hasLowerCase;
+                }
+
+                if (char.IsLower(c)) 
+                { 
+                hasLowerCase = true;
+
+                } 
+            }
+          
+               return hasUpperCase && hasLowerCase;
+
         }
 
         private bool IsValidEmail(string email)
